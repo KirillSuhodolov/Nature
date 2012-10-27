@@ -1,0 +1,46 @@
+<%- model_class = Article -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:article_name) %>:</strong></dt>
+  <dd><%= @article.article_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dd><%= @article.description %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
+  <dd><%= @article.user_id %></dd>
+</dl>
+
+<div id="photos">
+  <% @article.photos.each do |photo| %>
+  <%= render photo %>
+ <% end %> 
+</div>
+<div class="clear"></div>
+
+<%= form_for Photo.new do |f| %>
+  <%= f.hidden_field :article_id, :value => @article.id %>
+  <%= f.label :image, "Upload photos:" %>
+  <%= f.file_field :image, multiple: true, name: "photo[image]" %>
+<% end %>
+
+<script id="template-upload" type="text/x-tmpl">
+<div class="upload">
+  {%=o.name%}
+  <div class="progress"><div class="bar" style="width: 0%"></div></div>
+</div>
+</script>
+
+<div class="form-actions">
+  <%= link_to t('.new', :default => t("helpers.links.add_photo")),
+              new_photo_path(:article_id => @article), :class => 'btn' %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_article_path(@article), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy_article")),
+              article_path(@article),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
+
