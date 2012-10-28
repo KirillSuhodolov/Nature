@@ -14,7 +14,11 @@
               <td><%= article.description %></td>
               <td><%= article.user_id %></td>
               <td><%=l article.created_at %></td>
-              <td><%= link_to image_tag(article.photos.first.image_url(:thumb)) %></td>  
+              <td>
+                <%# article.photos.each do |photo| %>
+                  <%= link_to image_tag(article.photos.first.image_url(:thumb)) %>
+                <%# end %>
+              </td>  
               <td>
                 <%= link_to t('.edit', :default => t("helpers.links.edit")),
                             edit_article_path(article), :class => 'btn btn-mini' %>
@@ -35,3 +39,19 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_article_path,
             :class => 'btn btn-primary' %>
+
+<% @articles.each do |article| %>
+<ul class="nav nav-tabs">
+  <li><a href="#link" data-toggle="tab"><%= article.id %></a></li>
+  <li><a href="#name" data-toggle="tab"><%= article.article_name %></a></li>
+  <li><a href="#description" data-toggle="tab">Description</a></li>
+  <li><a href="#photo" data-toggle="tab">Photo</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="link"><%= link_to article.id, article_path(article) %></div>
+  <div class="tab-pane active" id="name"><%= article.article_name %></div>
+  <div class="tab-pane" id="description"><%= article.description %></div>
+  <div class="tab-pane" id="photo"><%= link_to image_tag(article.photos.first.image_url(:thumb)) %></div>
+</div>
+    <% end %>

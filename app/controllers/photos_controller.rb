@@ -1,6 +1,6 @@
 require 'carrierwave'
 class PhotosController < ApplicationController
-  # GET /photos
+   # GET /photos
   # GET /photos.json
   def index
     @photos = Photo.all

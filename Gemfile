@@ -30,7 +30,8 @@ gem 'simple_form'
 
 gem "rmagick"
 gem 'carrierwave'
-
+gem 'bootstrap-components-helpers',
+        :git => 'git://gist.github.com/2117187.git'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
